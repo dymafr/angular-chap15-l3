@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { User } from "../user.interface";
 
@@ -9,7 +10,7 @@ import { User } from "../user.interface";
 export class UserListComponent implements OnInit {
   public users: User[];
 
-  constructor() {}
+  constructor(private httpService: HttpClient) {}
 
   ngOnInit() {}
 }
