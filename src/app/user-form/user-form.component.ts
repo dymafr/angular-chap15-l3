@@ -35,6 +35,6 @@ export class UserFormComponent implements OnInit {
   submit() {
     this.httpService
       .post<User>("https://restapi.fr/api/angularuser", this.userForm.value)
-      .subscribe();
+      .subscribe((user: User) => console.log(user));
   }
 }
