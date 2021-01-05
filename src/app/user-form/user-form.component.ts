@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
@@ -14,7 +15,8 @@ export class UserFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private httpService: HttpClient
   ) {}
 
   ngOnInit() {
@@ -31,6 +33,8 @@ export class UserFormComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.userForm.value);
+    this.httpService
+      .post<User>("https://restapi.fr/api/angularuser", this.userForm.value)
+      .subscribe();
   }
 }
