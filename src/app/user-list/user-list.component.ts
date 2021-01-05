@@ -12,5 +12,11 @@ export class UserListComponent implements OnInit {
 
   constructor(private httpService: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.httpService
+      .get<User[]>("https://restapi.fr/api/angularuser")
+      .subscribe(users => {
+        this.users = users;
+      });
+  }
 }
