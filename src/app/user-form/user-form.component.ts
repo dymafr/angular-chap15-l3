@@ -1,17 +1,17 @@
-import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { User } from "../user.interface";
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { User } from '../user.interface';
 
 @Component({
-  selector: "app-user-form",
-  templateUrl: "./user-form.component.html",
-  styleUrls: ["./user-form.component.scss"]
+  selector: 'app-user-form',
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  public userForm: FormGroup;
-  public user: User;
+  public userForm: FormGroup = this.initForm();
+  public user?: User;
 
   constructor(
     private fb: FormBuilder,
@@ -22,12 +22,12 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      this.initForm();
+      this.userForm = this.initForm();
     });
   }
 
   initForm(user = { username: null, age: null }) {
-    this.userForm = this.fb.group({
+    return this.fb.group({
       username: [user.username],
       age: [user.age]
     });
@@ -35,7 +35,7 @@ export class UserFormComponent implements OnInit {
 
   submit() {
     this.httpService
-      .post<User>("https://restapi.fr/api/angularuser", this.userForm.value)
-      .subscribe((user: User) => this.router.navigateByUrl("/"));
+      .post<User>('https://restapi.fr/api/angularuser', this.userForm.value)
+      .subscribe((user: User) => this.router.navigateByUrl('/'));
   }
 }
